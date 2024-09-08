@@ -4,48 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR View</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.js"></script>
 </head>
 <body>
-    <a-scene embedded arjs>
-        <!-- Define the AR marker -->
-        <a-marker preset="hiro">
-            <!-- Load the GLTF model from URL parameter -->
-            <a-entity
-                id="gltf-model"
-                gltf-model=""
-                scale="2 2 2"
-                position="0 0 0"
-                rotation="0 180 0">
-            </a-entity>
-        </a-marker>
-        <!-- Define the camera -->
-        <a-entity camera></a-entity>
-    </a-scene>
-
-    <script>
-        // Function to get query parameters
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            const results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
-        // Load GLTF model from URL parameter
-        window.onload = function() {
-            const color = getParameterByName('color');
-            const image = getParameterByName('image');
-            const extension = getParameterByName('extension') || '.gltf';
-            const modelUrl = `https://aymengad.github.io/Ibiza000000.gltf`;
-
-            document.querySelector('#gltf-model').setAttribute('gltf-model', `url(${modelUrl})`);
-        };
-    </script>
+   <model-viewer alt="Ibiza000000" src="aymengad.github.io/Ibiza000000.gltf" ar  shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>
 </body>
 </html>
