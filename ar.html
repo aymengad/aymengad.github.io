@@ -10,14 +10,11 @@
     </style>
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@zappar/zappar-js@1.0.0/build/zappar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@zappar/zappar-three.js@1.0.0/build/zappar-three.js"></script>
-   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/GLTFLoader.js"></script>
-    
-    <script>
-        // Initialize the AR experience
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js';
+        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/loaders/GLTFLoader.js';
+        import { Camera, TargetTracker } from 'https://cdn.jsdelivr.net/npm/@zappar/zappar-three.js@1.0.0/build/zappar-three.module.js';
+
         window.addEventListener('DOMContentLoaded', () => {
             const canvas = document.createElement('canvas');
             document.body.appendChild(canvas);
@@ -28,15 +25,15 @@
 
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            
+
             // Initialize the Zappar camera and target
-            const zapparCamera = new ZapparThree.Camera();
-            const zapparTarget = new ZapparThree.TargetTracker();
+            const zapparCamera = new Camera();
+            const zapparTarget = new TargetTracker();
             scene.add(zapparCamera);
 
             // Load the GLTF model
-            const loader = new THREE.GLTFLoader();
-            loader.load('https://aymengad.github.io/Ibiza000000.gltf', (gltf) => {
+            const loader = new GLTFLoader();
+            loader.load('path/to/your/model.glb', (gltf) => {
                 const model = gltf.scene;
                 model.scale.set(0.5, 0.5, 0.5);  // Adjust scale as needed
                 scene.add(model);
