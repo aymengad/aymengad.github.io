@@ -2,7 +2,9 @@
 <html>
 <head>
   <title>Redirecting...</title>
-  <script>
+  <script type="module">
+     import { ModelViewerElement } from 'https://cdn.jsdelivr.net/npm/@google/model-viewer@latest/dist/model-viewer.js';
+    customElements.define('model-viewer', ModelViewerElement);
     // Function to get query parameters
     function getParameterByName(name, url) {
       if (!url) url = window.location.href;
@@ -20,25 +22,34 @@
       const color = getParameterByName('color');
       const image = getParameterByName('image');
       const extension = getParameterByName('extension') || '.gltf';
+      const modelUrl = `https://aymengad.github.io/Ibiza000000.gltf`;
 
       let url = '';
 
       if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
         url = `https://aymengad.github.io/Ibiza000000.usdz`;
       } else if (/Android/.test(userAgent)) {
-        url = `https://aymengad.github.io/Ibiza000000.gltf`;
+        arMode = 'webxr';
       } else {
-        url = `https://aymengad.github.io/Ibiza000000.gltf`; // Default
+         arMode = 'webxr'; // Default
       }
 
-      window.location.href = url;
+            document.querySelector('model-viewer').setAttribute('src', modelUrl);
+      document.querySelector('model-viewer').setAttribute('ar', '');
+      document.querySelector('model-viewer').setAttribute('ar-modes', arMode);
     }
 
     // Run the redirection function on page load
-    window.onload = detectOSAndRedirect;
+    window.onload = detectOSAndUpdateModel;
   </script>
 </head>
 <body>
-  <p>Redirecting...</p>
+  <model-viewer
+    alt="3D model"
+    auto-rotate
+    camera-controls
+    style="width: 100%; height: 100%;"
+  >
+  </model-viewer>
 </body>
 </html>
