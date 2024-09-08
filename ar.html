@@ -10,11 +10,12 @@
   </style>
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
- <script src="https://unpkg.com/three@0.153.0/examples/jsm/controls/ARButton.js"></script>
-  <script src="https://unpkg.com/three@0.153.0/examples/jsm/loaders/GLTFLoader.js"></script>
-  
-  <script>
+  <!-- Use module script tags -->
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js';
+    import { ARButton } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/ARButton.js';
+    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.153.0/examples/jsm/loaders/GLTFLoader.js';
+
     let camera, scene, renderer, model;
 
     init();
@@ -38,7 +39,7 @@
       scene.add(light);
 
       // Load the GLTF model from GitHub
-      const loader = new THREE.GLTFLoader();
+      const loader = new GLTFLoader();
       loader.load('https://aymengad.github.io/Ibiza000000.gltf', function (gltf) {
         model = gltf.scene;
         model.scale.set(0.5, 0.5, 0.5); // Adjust the scale as needed
@@ -68,3 +69,4 @@
   </script>
 </body>
 </html>
+
