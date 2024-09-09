@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Redirecting...</title>
+  <script>
+    // Function to get query parameters
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+      const results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Function to detect the OS and redirect
+    function detectOSAndRedirect() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const color = getParameterByName('color');
+      console.log("couleur",color);
+      const name = getParameterByName('name');
+      console.log("marbre",name);
+
+      // Basic validation
+      if (!name || !color) {
+        alert('Invalid parameters. Please check the URL.');
+        return;
+      }
+
+      let url = '';
+
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        url = `https://aymengad.github.io/Ibiza000000.usdz`; // Default for iOS
+      } else if (/Android/.test(userAgent)) {
+        // Redirect to the AR view page with query parameters
+        url = `https://aymengad.github.io/ar-view.html?name=${name}&color=${color}`;
+      } else {
+        url = `https://aymengad.github.io/ar-view.html?name=${name}&color=${color}`; // Default for other OS
+      }
+
+      window.location.href = url;
+    }
+
+    // Run the redirection function on page load
+    window.onload = detectOSAndRedirect;
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
