@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR View</title>
-    <!-- Include the latest model-viewer library -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@latest/dist/model-viewer.min.js"></script>
+    <title>AR with Three.js and AR.js</title>
     <style>
-        model-viewer {
-            width: 100vw;
-            height: 100vh;
-        }
+        body { margin: 0; }
+        #arjsDebugUI { display: none; }
     </style>
 </head>
 <body>
-    <!-- Model Viewer element with AR support -->
-    <model-viewer 
-        alt="Ibiza000000" 
-        src="https://aymengad.github.io/Ibiza000000.gltf" 
-        ar 
-        auto-rotate 
-        camera-controls 
-        shadow-intensity="1" 
-        touch-action="pan-y">
-    </model-viewer>
+    <!-- AR.js Setup -->
+    <a-scene embedded arjs>
+        <!-- Define a marker for AR.js -->
+        <a-marker preset="hiro">
+            <!-- Your 3D model -->
+            <a-entity
+                gltf-model="url(https://aymengad.github.io/Ibiza000000.gltf)"
+                scale="0.5 0.5 0.5"
+                position="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Camera Setup -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- Include A-Frame and AR.js -->
+    <script src="https://cdn.jsdelivr.net/npm/aframe/dist/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe/dist/aframe-ar.js"></script>
 </body>
 </html>
