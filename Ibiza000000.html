@@ -1,44 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Redirecting...</title>
-  <script>
-    // Function to get query parameters
-    function getParameterByName(name, url) {
-      if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, '\\$&');
-      const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-      const results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
-
-    // Function to detect the OS and redirect
-    function detectOSAndRedirect() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      const color = getParameterByName('color');
-      const image = getParameterByName('image');
-      const extension = getParameterByName('extension') || '.gltf';
-
-      let url = '';
-
-      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        url = `https://aymengad.github.io/Ibiza000000.usdz`;
-      } else if (/Android/.test(userAgent)) {
-        url = `https://aymengad.github.io/ar-view.html`;
-      } else {
-        url = `https://aymengad.github.io/ar-view.html`; // Default
-      }
-
-      window.location.href = url;
-    }
-
-    // Run the redirection function on page load
-    window.onload = detectOSAndRedirect;
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR with Three.js and AR.js</title>
+    <style>
+        body { margin: 0; }
+        #arjsDebugUI { display: none; }
+    </style>
 </head>
 <body>
-  <p>Redirecting...</p>
+    <!-- AR.js Setup -->
+    <a-scene embedded arjs>
+        <!-- Define a marker for AR.js -->
+        <a-marker preset="hiro">
+            <!-- Your 3D model -->
+            <a-entity
+                gltf-model="url(https://aymengad.github.io/Ibiza000000.gltf)"
+                scale="0.5 0.5 0.5"
+                position="0 0 0">
+            </a-entity>
+        </a-marker>
+        <!-- Camera Setup -->
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- Include A-Frame and AR.js -->
+    <script src="https://cdn.jsdelivr.net/npm/aframe/dist/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe/dist/aframe-ar.js"></script>
 </body>
 </html>
+
