@@ -2,8 +2,45 @@
 <html lang="en">
 <head>
   <title>Redirecting...</title>
+
+  <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+        }
+        p {
+            font-size: 1.5em;
+            margin: 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .spinner {
+            margin-top: 20px;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #007BFF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+  
   <script>
-    // Function to get query parameters
+
     function getParameterByName(name, url) {
       if (!url) url = window.location.href;
       name = name.replace(/[\[\]]/g, '\\$&');
@@ -14,15 +51,11 @@
       return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
-    // Function to detect the OS and redirect
     function detectOSAndRedirect() {
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
       const color = getParameterByName('color');
-      console.log("couleur",color);
       const name = getParameterByName('name');
-      console.log("marbre",name);
 
-      // Basic validation
       if (!name || !color) {
         alert('Invalid parameters. Please check the URL.');
         return;
@@ -31,22 +64,23 @@
       let url = '';
 
       if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        url = `https://aymengad.github.io/Ibiza000000.usdz`; // Default for iOS
+        url = `https://aymengad.github.io/${name}${color}.usdz`;
       } else if (/Android/.test(userAgent)) {
-        // Redirect to the AR view page with query parameters
         url = `https://aymengad.github.io/ar-view.html?name=${name}&color=${color}`;
       } else {
-        url = `https://aymengad.github.io/ar-view.html?name=${name}&color=${color}`; // Default for other OS
+        url = `https://aymengad.github.io/ar-view.html?name=${name}&color=${color}`; 
       }
 
       window.location.href = url;
     }
 
-    // Run the redirection function on page load
     window.onload = detectOSAndRedirect;
   </script>
 </head>
 <body>
-  <p>Redirecting...</p>
+      <div class="container">
+        <p>Redirecting...</p>
+        <div class="spinner"></div>
+    </div>
 </body>
 </html>
