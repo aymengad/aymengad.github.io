@@ -16,13 +16,36 @@
 <body>
     <!-- Model Viewer element with AR support -->
     <model-viewer 
-        alt="Ibiza000000" 
-        src="https://aymengad.github.io/Ibiza000000.gltf" 
+        id="model-viewer"
         ar 
         auto-rotate 
         camera-controls 
         shadow-intensity="1" 
         touch-action="pan-y">
     </model-viewer>
+
+    <script>
+        // Function to get query parameters
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Get the name and color from query parameters
+        const name = getParameterByName('name') || 'Ibiza';
+        const color = getParameterByName('color') || '000000';
+        const src = `https://aymengad.github.io/${name}${color}.gltf`;
+
+        // Set the attributes of the model-viewer element
+        const modelViewer = document.getElementById('model-viewer');
+        modelViewer.setAttribute('alt', `${name}${color}`);
+        modelViewer.setAttribute('src', src);
+    </script>
 </body>
 </html>
+
